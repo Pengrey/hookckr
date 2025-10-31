@@ -22,7 +22,7 @@ pub fn find_hooks_in_dll(dll_name: &str) -> Result<Vec<HookedFunctionInfo>> {
         let dll_name_nul = format!("{}\0", dll_name);
         let dll_handle = match GetModuleHandleA(PCSTR(dll_name_nul.as_ptr())) {
             Ok(handle) if !handle.is_invalid() => handle,
-            _ => return Ok(hooks), // Return empty list if DLL not found
+            _ => return Ok(hooks),
         };
         let base_addr = dll_handle.0 as usize;
         let dos_header = base_addr as *const IMAGE_DOS_HEADER;
